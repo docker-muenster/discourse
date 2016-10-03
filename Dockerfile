@@ -12,7 +12,7 @@ RUN npm install --global \
 
 WORKDIR /usr/src/app
 
-ARG DISCOURSE_VERSION=1.6.0
+ARG DISCOURSE_VERSION=1.6.4
 
 RUN curl -sfSL https://github.com/discourse/discourse/archive/v${DISCOURSE_VERSION}.tar.gz \
   | tar -zx --strip-components=1 -C /usr/src/app

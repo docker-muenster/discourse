@@ -1,4 +1,4 @@
-FROM ruby:2.3
+FROM ruby:2.4
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
@@ -9,7 +9,7 @@ RUN apt-get update \
     svgo uglify-js \
   && rm -rf /var/lib/apt/lists/*
 
-ENV DISCOURSE_VERSION=1.7.0.beta9 \
+ENV DISCOURSE_VERSION=1.7.0 \
   RAILS_ENV=production \
   RUBY_GC_MALLOC_LIMIT=90000000 \
   RUBY_GLOBAL_METHOD_CACHE_SIZE=131072 \

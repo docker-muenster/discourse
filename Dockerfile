@@ -1,4 +1,5 @@
-FROM ruby:2.4
+FROM ruby:2.3
+# FROM ruby:2.4
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
@@ -22,10 +23,10 @@ RUN curl -sfSL https://github.com/discourse/discourse/archive/v${DISCOURSE_VERSI
     | tar -zx --strip-components=1 -C /usr/src/app \
   && bundle config build.nokogiri --use-system-libraries
 
-# works on ruby 2.4 with this:
-RUN bundle config frozen 0 \
-  && echo "gem 'json', git: 'https://github.com/flori/json.git', branch: 'v1.8'" >> Gemfile \
-  && bundle update
+# # works on ruby:2.4 with this:
+# RUN bundle config frozen 0 \
+#   && echo "gem 'json', git: 'https://github.com/flori/json.git', branch: 'v1.8'" >> Gemfile \
+#   && bundle update
 
 RUN bundle install --deployment --without test --without development
 

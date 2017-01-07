@@ -20,8 +20,14 @@ ENV DISCOURSE_VERSION=1.7.0 \
 WORKDIR /usr/src/app
 RUN curl -sfSL https://github.com/discourse/discourse/archive/v${DISCOURSE_VERSION}.tar.gz \
     | tar -zx --strip-components=1 -C /usr/src/app \
-  && bundle config build.nokogiri --use-system-libraries \
-  && bundle install --deployment --without test --without development
+  && bundle config build.nokogiri --use-system-libraries
+
+# works on ruby 2.4 with this:
+RUN bundle config frozen 0 \
+  && echo "gem 'json', git: 'https://github.com/flori/json.git', branch: 'v1.8'" >> Gemfile \
+  && bundle update
+
+RUN bundle install --deployment --without test --without development
 
 EXPOSE 3000
 CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
